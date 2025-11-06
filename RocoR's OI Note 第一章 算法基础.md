@@ -374,7 +374,8 @@
 >
 > **示意图：**
 >
-> <img src="D:\Markdown笔记\RocoR's OI Note 第一章 算法基础.assets\45680_eac24b0f07-一维前缀和.jpg" alt="一维前缀和.jpg" style="zoom: 67%;" />
+>![45680_eac24b0f07-一维前缀和](https://github.com/user-attachments/assets/6e5b4496-85c2-43e2-8194-20dbe1591e8c)
+
 >
 > **模板：**
 >
@@ -417,7 +418,8 @@
 >
 > **示意图：**
 >
-> ![二维前缀和.jpg](D:\Markdown笔记\RocoR's OI Note 第一章 算法基础.assets\45680_048ede7607-二维前缀和.jpg)
+> ![45680_048ede7607-二维前缀和](https://github.com/user-attachments/assets/589200d1-c8fc-44a0-ac48-e0047d296e70)
+
 >
 > **模板：**
 >
@@ -477,11 +479,10 @@
 >     insert(i, i, a[i]);
 > }
 > 
-> // 输出前缀和数组
-> for (int i = 1; i <= n; i++) {
->     B[i] += B[i - 1];
->     printf("%d ", B[i]);
-> }
+> // 对操作后的差分数组求前缀和数组，得到改变后的原数组
+>for (int i = 1; i <= n; i++) {
+>     a[i] = a[i - 1] + B[i];
+>}
 > ```
 >
 > **说明：**
@@ -503,28 +504,37 @@
 > **模板：**
 >
 > ```cpp
-> int B[N][N];            // 二维差分数组
-> 
-> void insert(int x1, int y1, int x2, int y2, int c) {
->     B[x1][y1] += c;
->     B[x2 + 1][y1] -= c;
->     B[x1][y2 + 1] -= c;
->     B[x2 + 1][y2 + 1] += c;
-> }
-> 
-> // 构造（无需额外的数组a）
-> int tmp;
-> for (int i = 1; i <= n; i++) {
->     for (int j = 1; j <= m; j++) {
->         scanf("%d", &tmp);
->         insert(i, j, i, j, tmp);
->     }
-> }
-> 
-> // 转换成二维前缀和数组
-> for (int i = 1; i <= n; i++)
->     for (int j = 1; j <= m; j++)
->         B[i][j] += B[i - 1][j] + B[i][j - 1] - B[i - 1][j - 1];
+>int a[N][N], b[N][N];
+>
+>void insert(int x1,int y1, int x2, int y2, int c){
+>  b[x1][y1] += c;
+>  b[x2 + 1][y1] -= c;
+>  b[x1][y2 + 1] -= c;
+>  b[x2 + 1][y2 + 1] += c;
+>}
+>
+>// 读入原矩阵
+>for (int i = 1; i <= n; i++)
+>  for (int j = 1; j <= m; j++)
+>    cin >> a[i][j];
+>
+>// 初始化差分矩阵
+>for (int i = 1; i <= n; i++)
+>  for (int j = 1; j <= m; j++)
+>    insert(i, j, i, j, a[i][j]);
+>// 上面两步可合并
+>
+>// 操作差分矩阵
+>while(q--){
+>  int x1, y1, x2, y2, c;
+>  cin >> x1 >> y1 >> x2 >> y2 >> c;
+>  insert(x1, y1, x2, y2, c);
+>}
+>
+>//对操作后的差分矩阵求前缀和矩阵，得到改变后的原矩阵
+>for(int i = 1; i <= n; i++){
+>  for(int j = 1; j <= m; j++){
+>    a[i][j] = a[i - 1][j] + a[i][j - 1] - a[i - 1][j - 1] + b[i][j];
 > ```
 >
 > **说明：**
@@ -539,4 +549,5 @@
 >* 注意遍历范围是`1 ~ n`
 
 ## 双指针算法
+
 
