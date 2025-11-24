@@ -863,21 +863,21 @@
 >
 > | 字符串 | 哈希值计算                                                   |
 > | ------ | ------------------------------------------------------------ |
-> | A      | $ A $，$ h[1] \equiv 65 $                                |
-> | AB     | $ A \times p^1 + B $，$ h[2] = h[1] \times p + 66 $      |
-> | ABC    | $ A \times p^2 + B \times p^1 + C $，$ h[3] = h[2] \times p + 67 $ |
-> | ABCD   | $ A \times p^3 + B \times p^2 + C \times p^1 + D $         |
-> | ABCDE  | $ A \times p^4 + B \times p^3 + C \times p^2 + D \times p^1 + E $ |
+> | A      | $A$，$h[1] = 65$                                |
+> | AB     | $A \times p^1 + B$，$h[2] = h[1] \times p + 66$      |
+> | ABC    | $A \times p^2 + B \times p^1 + C$，$h[3] = h[2] \times p + 67$ |
+> | ABCD   | $A \times p^3 + B \times p^2 + C \times p^1 + D$         |
+> | ABCDE  | $A \times p^4 + B \times p^3 + C \times p^2 + D \times p^1 + E$ |
 >
-> 3. **区间和**  $$ h[l,r] = h[r] - h[l-1] \times p^{r-l+1} $$
+> 3. **区间和**  $h[l,r] = h[r] - h[l-1] \times p^{r-l+1}$
 >
->    例如，$$ DE = ABCDE - ABC \times p^2 = D \times p^1 + E $$
+>    例如，$DE = ABCDE - ABC \times p^2 = D \times p^1 + E$
 >
->    即：$$ h[4,5] = h[5] - h[3] \times p^2 $$
+>    即：$h[4,5] = h[5] - h[3] \times p^2$
 >
-> 4. 计算前缀和，时间复杂度：$$ O(n) $$
+> 4. 计算前缀和，时间复杂度：$O(n)$
 >
->    查询区间和，时间复杂度：$$ O(1) $$
+>    查询区间和，时间复杂度：$O(1)$
 >
 > **模板：**
 >
@@ -907,3 +907,4 @@
 > }
 > ```
 >
+
