@@ -73,30 +73,30 @@
 >
 >/** 创建双链表（含头结点和尾结点） */
 >void init() {
->r[0] = 1;       // 头结点
->l[1] = 0;       // 尾结点
->idx = 2;
+>    r[0] = 1;       // 头结点
+>    l[1] = 0;       // 尾结点
+>    idx = 2;
 >}
 >
 >/** 在下标为k的结点右侧插入一个结点 */
 >void insert(int k, int x) {
->e[idx] = x;
->r[idx] = r[k];
->l[idx] = k;
->l[r[k]] = idx;
->r[k] = idx;
->idx++;
+>    e[idx] = x;
+>    r[idx] = r[k];
+>    l[idx] = k;
+>    l[r[k]] = idx;
+>    r[k] = idx;
+>    idx++;
 >}
 >
 >/** 删除下标为k的结点 */
 >void remove(int k) {
->r[l[k]] = r[k];
->l[r[k]] = l[k];
+>    r[l[k]] = r[k];
+>    l[r[k]] = l[k];
 >}
 >
 >/** 输出 */
 >void print() {
->for (int i = r[0]; i != 1; i = r[i]) printf("%d ", e[i]);
+>    for (int i = r[0]; i != 1; i = r[i]) printf("%d ", e[i]);
 >}
 >```
 >
@@ -224,13 +224,13 @@
 > 
 > STL使用例：找当前元素左侧最近且小于当前元素的数
 > for(int i = 0; i < n; i++){
-> 	cin >> a[i];        
-> // 栈非空时，若栈顶元素大于等于当前元素，则不满足从栈顶到栈底的单调递减性，弹出栈顶，循环直到栈顶元素小于当前元素为止
-> 	while (!stk.empty() && stk.top() >= a[i]) stk.pop();    
-> 	if (stk.empty()) cout << "-1 ";  //不存在这个数
-> 	else cout << stk.top() << " ";	 //找到了，输出这个数
-> 	stk.push(a[i]);//将当前元素加入栈
->     }
+>     cin >> a[i];        
+>     // 栈非空时，若栈顶元素大于等于当前元素，则不满足从栈顶到栈底的单调递减性，弹出栈顶，循环直到栈顶元素小于当前元素为止
+> 	  while (!stk.empty() && stk.top() >= a[i]) stk.pop();    
+> 	  if (stk.empty()) cout << "-1 ";  //不存在这个数
+> 	  else cout << stk.top() << " ";	 //找到了，输出这个数
+> 	  stk.push(a[i]);//将当前元素加入栈
+> }
 > ```
 >
 > **说明：**
@@ -252,23 +252,22 @@
 >
 >```cpp
 >int hh = 0, tt = -1;
->for (int i = 0; i < n; i ++ )
->{
->while (hh <= tt && check_out(q[hh])) hh ++ ;  // 判断队头是否滑出窗口
->while (hh <= tt && check(q[tt], i)) tt -- ;
->q[ ++ tt] = i;
+>for (int i = 0; i < n; i ++){
+>    while (hh <= tt && check_out(q[hh])) hh ++ ;  // 判断队头是否滑出窗口
+>    while (hh <= tt && check(q[tt], i)) tt -- ;
+>    q[ ++ tt] = i;
 >}
 >
 >STL使用例：输出滑动窗口中最小值
 >// n为数组长度，k为窗口长度
 >// 维护从队首到队尾的单调递增队列，队首即为当前窗口最小值
 >for(int i = 0; i < n; i++){
->	if (!q.empty() && q.front() < i - k + 1) q.pop_front(); //如果队首已经离开窗口，弹出队首
+>    if (!q.empty() && q.front() < i - k + 1) q.pop_front(); //如果队首已经离开窗口，弹出队首
 >
->	while (!q.empty() && a[q.back()] >= a[i]) q.pop_back(); //维护单调性
->	q.push_back(i); //加入新元素
+>    while (!q.empty() && a[q.back()] >= a[i]) q.pop_back(); //维护单调性
+>    q.push_back(i); //加入新元素
 >
->	if (i >= k - 1) cout << a[q.front()] << " ";   // 窗口全部进入数组时再开始输出
+>    if (i >= k - 1) cout << a[q.front()] << " ";   // 窗口全部进入数组时再开始输出
 >}
 >```
 >
@@ -307,15 +306,16 @@
 >  * m：模式串的长度
 >  */
 > std::vector<int> match(char *s, char *t, int n, int m) {
->   std::vector<int> ans;
->   int i, j;
->   for (i = 0; i < n - m + 1; i++) {
->     for (j = 0; j < m; j++) {
->       if (s[i + j] != t[j]) break;
+>     std::vector<int> ans;
+>     int i, j;
+>     for (i = 0; i < n - m + 1; i++) {
+>       for (j = 0; j < m; j++) {
+>         if (s[i + j] != t[j]) break;
+>       }
+>       if (j == m) ans.push_back(i);
 >     }
->     if (j == m) ans.push_back(i);
->   }
->   return ans;
+> 
+>     return ans;
 > }
 > ```
 >
@@ -331,24 +331,21 @@
 >// s[]是长文本，p[]是模式串，n是s的长度，m是p的长度
 >
 >// 求模式串的Next数组（实质是模式串的自我匹配）：
->for (int i = 2, j = 0; i <= m; i ++ )
->{
->while (j && p[i] != p[j + 1]) j = ne[j];
->if (p[i] == p[j + 1]) j ++ ;
->ne[i] = j;
+>for (int i = 2, j = 0; i <= m; i ++){
+>    while (j && p[i] != p[j + 1]) j = ne[j];
+>    if (p[i] == p[j + 1]) j ++ ;
+>    ne[i] = j;
 >}
 >
 >// 匹配
 >// i为主指针，遍历文本串或模式串的当前位置；j为匹配长度指针，记录当前**已匹配成功**的字符个数，所以s[i]与p[j + 1]比较
->for (int i = 1, j = 0; i <= n; i ++ )
->{
->while (j && s[i] != p[j + 1]) j = ne[j];
->if (s[i] == p[j + 1]) j ++ ;
->if (j == m)
->{
->   j = ne[j];
->   // 匹配成功后的逻辑，如：输出匹配子串位置i - m + 1，记录匹配次数count++
->}
+>for (int i = 1, j = 0; i <= n; i ++){
+>    while (j && s[i] != p[j + 1]) j = ne[j];
+>    if (s[i] == p[j + 1]) j ++ ;
+>    if (j == m){
+>       j = ne[j];
+>       // 匹配成功后的逻辑，如：输出匹配子串位置i - m + 1，记录匹配次数count++
+>    }
 >}
 >
 >```
@@ -378,41 +375,38 @@
 > // idx为当前可用位置,用来给节点编号
 > 
 > // 插入一个字符串
-> void insert(char *str[])
-> {
-> int p = 0;
-> for (int i = 0; str[i]; i ++ )	  //以str[i]作为循环条件，意为str有效数据遍历完后，下一个位置是0，退出
-> {
->   int u = str[i] - 'a';           //将字母按a-z对应0-25转为数字代号
->   if (!son[p][u]) son[p][u] = idx ++;     // 不存在结点则创建结点
->   p = son[p][u];                        // 指针p指向新结点
-> }
-> cnt[p] ++ ;		// 字符串插入完成后，结尾处添加结束标记
+> void insert(char *str[]){
+> 	int p = 0;
+> 	for (int i = 0; str[i]; i ++ ){	  //以str[i]作为循环条件，意为str有效数据遍历完后，下一个位置是0，退出
+> 		int u = str[i] - 'a';           //将字母按a-z对应0-25转为数字代号
+> 		if (!son[p][u]) son[p][u] = idx ++;     // 不存在结点则创建结点
+>   		p = son[p][u];                        // 指针p指向新结点
+>   	}
+>   	cnt[p] ++ ;		// 字符串插入完成后，结尾处添加结束标记
 > }
 > 
 > // 查询字符串出现的次数
-> int query(char *str[])
-> {
-> int p = 0;
-> for (int i = 0; str[i]; i ++ )
-> {
->   int u = str[i] - 'a';
->   if (!son[p][u]) return 0;
->   p = son[p][u];
-> }
-> return cnt[p];
-> }
+> int query(char *str[]){
+> 	int p = 0;
+> 	for (int i = 0; str[i]; i ++ ){
+> 		int u = str[i] - 'a';
+> 		if (!son[p][u]) return 0;
+> 		p = son[p][u];
+>     }
+>       
+>   	return cnt[p];
+>   }
 > ```
->
+> 
 > **说明：**
->
-> * Trie树共享前缀，结点存在不代表根到该结点的字符串存在，需要看标记数组`cnt`
->
-> * Trie树是**多重集合**
->
-> * `son`数组的第`1`维表示结点地址，容量要大于所有存储的字符串长度的和（不是字符串长度的最大值）；第`2`维表示每个结点的孩子的代号，容量为最大分支数，一般取字符种类数（如小写字母有26个）
->
-> * `cnt[i]`表示以`son[i]`结点为末尾的字符串的个数
+> 
+>* Trie树共享前缀，结点存在不代表根到该结点的字符串存在，需要看标记数组`cnt`
+> 
+>* Trie树是**多重集合**
+> 
+>* `son`数组的第`1`维表示结点地址，容量要大于所有存储的字符串长度的和（不是字符串长度的最大值）；第`2`维表示每个结点的孩子的代号，容量为最大分支数，一般取字符种类数（如小写字母有26个）
+> 
+>* `cnt[i]`表示以`son[i]`结点为末尾的字符串的个数
 
 ## 并查集
 
@@ -433,11 +427,10 @@
 > int p[N]; //存储每个点的祖先节点
 > 
 > // 返回x的祖先节点
-> int find(int x)
-> {
->     if (p[x] != x) p[x] = find(p[x]);       // 路径压缩
->     return p[x];
-> }
+> int find(int x){
+> 	if (p[x] != x) p[x] = find(p[x]);       // 路径压缩
+>    	return p[x];
+>    }
 > 
 > // 初始化，假定节点编号是1~n
 > for (int i = 1; i <= n; i ++ ) p[i] = i;
@@ -448,16 +441,16 @@
 > // 判断两个结点是否属于同一集合
 > if (find(a) == find(b)) {...}
 > ```
->
-> **说明：**
->
-> * 此模板中规定：若p[x] = x，即一个数的祖先是自己，那么这个结点是根
->
-> * 查找函数中使用了**路径压缩**优化并查集结构，通过**递归**使得路径上每个非根结点直接连到根节点上，每棵树的深度不超过`2`
->
-> * 判断两个数是否属于同一个集合等价于判断两个数的祖先结点是否相同，即`find(a) == find(b)`
->
-> * 合并操作本质是把其中一个数的祖宗结点连接到另一个数的祖宗结点上
+> 
+>**说明：**
+> 
+>* 此模板中规定：若p[x] = x，即一个数的祖先是自己，那么这个结点是根
+> 
+>* 查找函数中使用了**路径压缩**优化并查集结构，通过**递归**使得路径上每个非根结点直接连到根节点上，每棵树的深度不超过`2`
+> 
+>* 判断两个数是否属于同一个集合等价于判断两个数的祖先结点是否相同，即`find(a) == find(b)`
+> 
+>* 合并操作本质是把其中一个数的祖宗结点连接到另一个数的祖宗结点上
 
 ### 维护size的并查集
 
@@ -469,30 +462,28 @@
 > //只有根节点的size[]有意义，表示其所在集合中的元素的数量，故使用size时必须与find函数共同使用：size[find(x)]
 > 
 > // 返回x的祖先节点
-> int find(int x)
-> {
->     if (p[x] != x) p[x] = find(p[x]);
->     return p[x];
-> }
+> int find(int x){
+> 	if (p[x] != x) p[x] = find(p[x]);
+>    	return p[x];
+>    }
 > 
 > // 初始化，假定节点编号是1~n
-> for (int i = 1; i <= n; i ++ )
-> {
->     p[i] = i;
->     size[i] = 1;                    // 变动部分，初始化size数组
-> }
-> 
+> for (int i = 1; i <= n; i ++ ){
+> 	p[i] = i;
+> 	size[i] = 1;                    // 变动部分，初始化size数组
+>    }
+>    
 > // 合并a和b所在的两个集合：
 > int x = find(a), y = find(b);
-> if (x != y) {		//a、b若已连通，则无需再次连接，否则集合size大小会翻倍
->     p[x] = y;
->     size[y] += size[x];
-> }
-> 
+> if (x != y){		//a、b若已连通，则无需再次连接，否则集合size大小会翻倍
+> 	p[x] = y;
+> 	size[y] += size[x];
+>    }
+>    
 > // 判断两个结点是否属于同一集合
 > if (find(a) == find(b)) {...}
 > ```
->
+> 
 > **说明：**
 >
 > * `size[x]`存储的是以该结点为根的树的结点个数
@@ -514,29 +505,27 @@
 > //p[]存储每个点的祖先节点, d[x]存储x到p[x]的距离
 > 
 > // 返回x的祖先节点
-> int find(int x)
-> {
->     if (p[x] != x)
->     {
->         int u = find(p[x]);         // 先更新d[p[x]]
->         d[x] += d[p[x]];            // 再更新d[x]
->         p[x] = u;                   // 最后更新p[x]
->     }
->     return p[x];
-> }
+> int find(int x){
+> 	if (p[x] != x){
+>    		int u = find(p[x]);         // 先更新d[p[x]]
+>    		d[x] += d[p[x]];            // 再更新d[x]
+>    		p[x] = u;                   // 最后更新p[x]
+>        }
+>        
+>    	return p[x];
+>    }
 > 
 > // 初始化，假定节点编号是1~n
-> for (int i = 1; i <= n; i ++ )
-> {
->     p[i] = i;
+> for (int i = 1; i <= n; i ++ ){
+> 	p[i] = i;
 >     d[i] = 0;                       // 自身到自身的距离是0
-> }
-> 
+>    }
+>    
 > // 合并a和b所在的两个集合：
 > p[find(a)] = find(b);
 > d[find(a)] = distance; // 根据具体问题，初始化find(a)的偏移量
 > ```
->
+> 
 > **说明：**
 >
 > * 注意`find`函数语句的先后次序，次序不对可能会导致含义错误
@@ -652,7 +641,7 @@
 > }
 > 
 > void down(int u){
->      int t = u;
+>   	int t = u;
 >  	if (u * 2 <= hsize && h[u * 2] < h[t]) t = u * 2;
 >  	if (u * 2 + 1 <= hsize && h[u * 2 + 1] < h[t]) t = u * 2 + 1;
 >  	if (u != t){
@@ -833,6 +822,7 @@
 > }
 > ```
 
+
 ## 字符串哈希
 
 > **用途：**
@@ -907,4 +897,5 @@
 > }
 > ```
 >
+
 
